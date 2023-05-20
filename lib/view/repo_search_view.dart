@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project_github/view/repos_catalog_view.dart';
+import 'package:project_github/view/timeconversion.dart';
 import 'package:project_github/view/users_catalog_view.dart';
 
 import 'bookmark_view.dart';
@@ -24,6 +25,21 @@ class _RepoSearchState extends State<RepoSearch> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Repository Search"),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(
+              Icons.timer,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Calendar(),
+                  ));
+            },
+          ),
+        ],
       ),
       body: Container(
         child: Column(

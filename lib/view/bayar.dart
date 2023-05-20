@@ -12,17 +12,16 @@ class _SubscribePageState extends State<SubscribePage> {
 
   Map<String, double> exchangeRates = {
     'IDR': 1, // Rupiah
-    'USD': 0.00007, // Dolar Amerika
-    'EUR': 0.00006, // Euro
-    'JPY': 0.0077, // Yen Jepang
+    'USD': 0.000067, // Dolar Amerika
+    'EUR': 0.000062, // Euro
+    'JPY': 0.0092, // Yen Jepang
     'MYR': 0.00029, // Ringgit
     'PHP': 0.0033, // Peso
   };
 
   double calculateTotalPrice() {
     double price;
-    price = pricePerMonth;
-    return price * exchangeRates[selectedCurrency]!;
+    return pricePerMonth * exchangeRates[selectedCurrency]!;
   }
 
   void sendMessageToWhatsApp() async {
@@ -87,6 +86,12 @@ class _SubscribePageState extends State<SubscribePage> {
                           Navigator.pop(context);
                         },
                         child: Text('Bayar'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text('Tutup'),
                       ),
                     ],
                   ),

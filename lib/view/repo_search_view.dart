@@ -59,7 +59,7 @@ class _RepoSearchState extends State<RepoSearch> {
                             color: Colors.grey,
                             fontSize: 15.0,
                           ),
-                          hintText: "Enter Github Repository",
+                          hintText: "Github Repository",
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(7.0),
                           ),
@@ -83,7 +83,7 @@ class _RepoSearchState extends State<RepoSearch> {
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return UsersCatalog(text: _controller.text);
+                        return ReposCatalog(text: _controller.text);
                       }));
                     },
                     style: ButtonStyle(

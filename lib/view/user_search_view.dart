@@ -73,7 +73,7 @@ class _UserSearchState extends State<UserSearch> {
                             color: Colors.grey,
                             fontSize: 15.0,
                           ),
-                          hintText: "Enter Github Username",
+                          hintText: "Github Username",
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(7.0),
                           ),

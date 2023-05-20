@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:project_github/controller/repos_data_source.dart';
-import 'package:project_github/models/repo_book.dart';
 import 'package:project_github/models/repositories.dart';
 
 import 'package:project_github/view/bookmark_view.dart';

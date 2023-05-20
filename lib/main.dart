@@ -4,7 +4,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:project_github/view/menu.dart';
 
 import 'boxes.dart';
-import 'models/repo_book.dart';
 import 'models/user_book.dart';
 
 void main() async {

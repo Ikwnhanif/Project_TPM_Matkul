@@ -1,15 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:hive/hive.dart';
 import 'package:project_github/controller/repos_data_source.dart';
 import 'package:project_github/models/repositories.dart';
-
-import 'package:project_github/view/bookmark_view.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../boxes.dart';
 
 class ReposCatalog extends StatefulWidget {
   final String text;

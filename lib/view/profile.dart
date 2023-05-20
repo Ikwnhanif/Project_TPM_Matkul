@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:project_github/view/bayar.dart';
+import 'package:project_github/view/kesanpesan.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -39,6 +41,19 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Profile Page'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => KesanPesanPage(),
+                ),
+              );
+            },
+            icon: Icon(Icons.message),
+          ),
+        ],
       ),
       body: Center(
         child: FutureBuilder<User>(
@@ -75,12 +90,27 @@ class _ProfilePageState extends State<ProfilePage> {
                     },
                     child: Text('Visit GitHub'),
                   ),
+                  SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SubscribePage(),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors
+                          .red, // Mengatur warna latar belakang tombol menjadi merah
+                    ),
+                    child: Text('Subscribe to Application'),
+                  ),
                 ],
               );
             } else if (snapshot.hasError) {
               return Text('Failed to fetch user data');
             }
-
             return CircularProgressIndicator();
           },
         ),

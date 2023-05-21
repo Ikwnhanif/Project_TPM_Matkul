@@ -37,22 +37,20 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Login Page"),
-      ),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 32),
           child: Column(
             children: [
+              SizedBox(height: 100),
               _createImage(),
               SizedBox(height: 32),
               _formSection(Username_controller, 'Username'),
               SizedBox(height: 16),
               _formSection(Password_controller, 'Password'),
-              SizedBox(height: 24),
+              SizedBox(height: 10),
               _buttonSubmit(),
-              SizedBox(height: 30),
+              // SizedBox(height: 10),
               _buttonRegister()
             ],
           ),
@@ -63,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _createImage() {
     return Container(
-      child: Image.asset('assets/images/logo-TPM.png'),
+      child: Image.asset('assets/images/icon_login.png'),
     );
   }
 

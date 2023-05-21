@@ -36,11 +36,11 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Column(
               children: [
                 const Text(
-                  "Register",
+                  "Daftar",
                   style: TextStyle(
                     fontSize: 50,
                     fontWeight: FontWeight.w900,
-                    color: Colors.teal,
+                    color: Colors.purple,
                   ),
                 ),
                 const SizedBox(
@@ -50,13 +50,13 @@ class _RegisterPageState extends State<RegisterPage> {
                   controller: Username,
                   keyboardType: TextInputType.text,
                   decoration: const InputDecoration(
-                    labelText: "Masukkan Username",
+                    labelText: "Username",
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.people_rounded),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Username Wajib Diisi';
+                      return 'Wajib Diisi';
                     }
                     return null;
                   },
@@ -69,7 +69,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   keyboardType: TextInputType.visiblePassword,
                   obscureText: !_showPassword,
                   decoration: InputDecoration(
-                    labelText: "Masukkan Password",
+                    labelText: "Password",
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.lock),
                     suffixIcon: IconButton(
@@ -98,7 +98,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   keyboardType: TextInputType.visiblePassword,
                   obscureText: !_showPassword,
                   decoration: InputDecoration(
-                    labelText: "Masukkan Confirm Password",
+                    labelText: "Confirm Password",
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.lock),
                     suffixIcon: IconButton(
@@ -134,7 +134,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
                     gradient: const LinearGradient(
-                        colors: [Colors.orange, Colors.red]),
+                        colors: [Colors.purple, Colors.black]),
                   ),
                   child: MaterialButton(
                     onPressed: () {
@@ -192,7 +192,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       );
                     },
                     child: Text(
-                      "Sudah punya akun? Login",
+                      "Kembali menu Login",
                       style: TextStyle(color: Colors.black54),
                     ))
               ],

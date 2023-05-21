@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:project_github/view/login_page.dart';
 import 'package:project_github/view/menu.dart';
 
 import 'boxes.dart';
 import 'models/user_book.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   // Hive.initFlutter();
   await Hive.initFlutter();
   await HiveBox1.initHiveBox1();
@@ -29,9 +31,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.deepPurple),
-      home: const MyHomePage(
-        title: 'Github',
-      ),
+      home: const LoginPage(),
     );
   }
 }

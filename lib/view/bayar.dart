@@ -34,25 +34,7 @@ class _SubscribePageState extends State<SubscribePage> {
     String url =
         'https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}';
 
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text('Error'),
-          content: Text('Gagal membuka WhatsApp.'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text('Tutup'),
-            ),
-          ],
-        ),
-      );
-    }
+    await launch(url);
   }
 
   @override

@@ -24,33 +24,35 @@ class _ReposCatalogState extends State<ReposCatalog> {
       appBar: AppBar(
         title: Text("Repository Github"),
       ),
-      body: Container(
-        // FutureBuilder() membentuk hasil Future dari request API
-        child: FutureBuilder(
-          future: RepoDataSource.instance.loadRepos(widget.text),
-          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            if (snapshot.hasError || widget.text.isEmpty) {
-              return _buildErrorSectio();
-            }
-            if (snapshot.hasData) {
-              Repo repo = Repo.fromJson(snapshot.data);
-              return _buildSuccessSectio(repo);
-            }
-            return _buildLoadingSectio();
-          },
+      body: Card(
+        child: Container(
+          // FutureBuilder() membentuk hasil Future dari request API
+          child: FutureBuilder(
+            future: RepoDataSource.instance.loadRepos(widget.text),
+            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+              if (snapshot.hasError || widget.text.isEmpty) {
+                return _buildErrorSection();
+              }
+              if (snapshot.hasData) {
+                Repo repo = Repo.fromJson(snapshot.data);
+                return _buildSuccessSection(repo);
+              }
+              return _buildLoadingSection();
+            },
+          ),
         ),
       ),
     );
   }
 
   // Jika API sedang dipanggil
-  Widget _buildLoadingSectio() {
+  Widget _buildLoadingSection() {
     return const Center(
       child: CircularProgressIndicator(),
     );
   }
 
-  Widget _buildErrorSectio() {
+  Widget _buildErrorSection() {
     if (widget.text.isEmpty) {
       return const Text("Search bar cannot be Empty");
     } else {
@@ -59,31 +61,42 @@ class _ReposCatalogState extends State<ReposCatalog> {
   }
 
   // Jika data ada
-  Widget _buildSuccessSectio(Repo repu) {
+  Widget _buildSuccessSection(Repo repo) {
     return ListView.builder(
-      itemCount: repu.items?.length,
+      itemCount: repo.items?.length,
       itemBuilder: (BuildContext context, int index) {
-        final repo = repu.items![index];
-        return ListTile(
-          onTap: () {
-            _launchURL(repo.htmlUrl!);
-          },
-          title: Text("${repo.fullName}"),
-          subtitle: Text(
-            "${repo.description}",
-            style: TextStyle(fontSize: 11.0),
+        final repoItem = repo.items![index];
+        return Card(
+          elevation: 2,
+          margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+          child: ListTile(
+            onTap: () {
+              _launchURL(repoItem.htmlUrl!);
+            },
+            title: Text(
+              "${repoItem.fullName}",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            subtitle: Text(
+              "${repoItem.description}",
+              style: TextStyle(fontSize: 14),
+            ),
+            isThreeLine: true,
+            trailing: Icon(
+              Icons.arrow_forward_ios,
+              size: 16,
+            ),
+            contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           ),
-          isThreeLine: true,
         );
       },
     );
   }
 
   void _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
+    await launchUrl(Uri.parse(url));
   }
 }

@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:project_github/data/shared_pref.dart';
+
+import 'login_page.dart';
 
 class KesanPesanPage extends StatelessWidget {
   const KesanPesanPage({Key? key}) : super(key: key);
@@ -9,6 +12,18 @@ class KesanPesanPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Kesan Pesan'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              SharedPref().setLogout();
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                  (route) => false);
+            },
+            icon: Icon(Icons.logout),
+          ),
+        ],
       ),
       body: ListView.builder(
         itemCount: kesanPesanList.length,

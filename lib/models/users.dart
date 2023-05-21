@@ -41,7 +41,7 @@ class Items {
   String? reposUrl;
   String? receivedEventsUrl;
   String? type;
-  int? score;
+  dynamic? score;
   String? followingUrl;
   String? gistsUrl;
   String? starredUrl;

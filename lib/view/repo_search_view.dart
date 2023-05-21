@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -6,6 +7,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:project_github/view/repos_catalog_view.dart';
 import 'package:project_github/view/timeconversion.dart';
 import 'package:project_github/view/users_catalog_view.dart';
+import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 import 'bookmark_view.dart';
 
@@ -19,11 +22,32 @@ class RepoSearch extends StatefulWidget {
 class _RepoSearchState extends State<RepoSearch> {
   final _controller = TextEditingController();
   String? text;
+  List<dynamic> repositories = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchRepositories();
+  }
+
+  Future<void> fetchRepositories() async {
+    final response =
+        await http.get(Uri.parse('https://api.github.com/repositories'));
+
+    if (response.statusCode == 200) {
+      setState(() {
+        repositories = json.decode(response.body);
+      });
+    } else {
+      throw Exception('Failed to fetch repositories');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text("Repository Search"),
         actions: <Widget>[
           IconButton(
@@ -131,9 +155,32 @@ class _RepoSearchState extends State<RepoSearch> {
                 ],
               ),
             ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: repositories.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                    leading: CircleAvatar(
+                      backgroundImage: NetworkImage(
+                        repositories[index]['owner']['avatar_url'],
+                      ),
+                    ),
+                    title: Text(repositories[index]['name']),
+                    subtitle: Text(repositories[index]['html_url']),
+                    onTap: () {
+                      _launchURL(repositories[index]['html_url']);
+                    },
+                  );
+                },
+              ),
+            )
           ],
         ),
       ),
     );
+  }
+
+  void _launchURL(String url) async {
+    await launchUrl(Uri.parse(url));
   }
 }

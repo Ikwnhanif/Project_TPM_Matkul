@@ -73,6 +73,9 @@ class _ReposCatalogState extends State<ReposCatalog> {
             onTap: () {
               _launchURL(repoItem.htmlUrl!);
             },
+            leading: CircleAvatar(
+              backgroundImage: NetworkImage(repoItem.owner!.avatarUrl!),
+            ),
             title: Text(
               "${repoItem.fullName}",
               style: TextStyle(

@@ -1,9 +1,12 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project_github/view/users_catalog_view.dart';
+import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 import 'bookmark_view.dart';
 
@@ -17,11 +20,31 @@ class UserSearch extends StatefulWidget {
 class _UserSearchState extends State<UserSearch> {
   final _controller = TextEditingController();
   String? text;
+  List<dynamic> users = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUsers();
+  }
+
+  Future<void> fetchUsers() async {
+    final response = await http.get(Uri.parse('https://api.github.com/users'));
+
+    if (response.statusCode == 200) {
+      setState(() {
+        users = json.decode(response.body);
+      });
+    } else {
+      throw Exception('Failed to fetch users');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text("User Github Search"),
         actions: <Widget>[
           IconButton(
@@ -129,9 +152,30 @@ class _UserSearchState extends State<UserSearch> {
                 ],
               ),
             ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: users.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                    leading: CircleAvatar(
+                      backgroundImage: NetworkImage(users[index]['avatar_url']),
+                    ),
+                    title: Text(users[index]['login']),
+                    subtitle: Text(users[index]['html_url']),
+                    onTap: () {
+                      _launchURL(users[index]['html_url']);
+                    },
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  void _launchURL(String url) async {
+    await launchUrl(Uri.parse(url));
   }
 }

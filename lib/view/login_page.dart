@@ -128,12 +128,18 @@ class _LoginPageState extends State<LoginPage> {
       await userDatabaseHelper.getUserByUsernameAndPassword(
           Username_controller.text, Password_controller.text);
       SharedPref().setLogin(Username_controller.text);
-      final snackbar = SnackBar(content: Text('Berhasil Login'));
+      final snackbar = SnackBar(
+        content: Text('Berhasil Login'),
+        backgroundColor: Colors.greenAccent,
+      );
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => MyHomePage()));
     } catch (e) {
-      final snackbar = SnackBar(content: Text('Gagal login'));
+      final snackbar = SnackBar(
+        content: Text('Gagal login'),
+        backgroundColor: Colors.redAccent,
+      );
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
     }
   }

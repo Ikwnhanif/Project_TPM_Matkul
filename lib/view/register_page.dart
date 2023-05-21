@@ -207,19 +207,17 @@ class _RegisterPageState extends State<RegisterPage> {
     Akun akun = Akun(Username.text, Password.text);
     try {
       await userDatabaseHelper.createUser(akun);
-      final snackbar = SnackBar(content: Text('Berhasil Membuat Akun'));
+      final snackbar = SnackBar(
+        content: Text('Berhasil Membuat Akun'),
+        backgroundColor: Colors.greenAccent,
+      );
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
     } catch (e) {
-      final snackbar = SnackBar(content: Text('Gagal Membuat Akun'));
+      final snackbar = SnackBar(
+        content: Text('Gagal Membuat Akun'),
+        backgroundColor: Colors.redAccent,
+      );
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
     }
   }
-
-  // void _check() {
-  //   final form = _formKey.currentState!;
-  //   if (form.validate()) {
-  //     form.save();
-  //     _onRegister();
-  //   }
-  // }
 }

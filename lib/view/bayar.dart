@@ -20,7 +20,6 @@ class _SubscribePageState extends State<SubscribePage> {
   };
 
   double calculateTotalPrice() {
-    double price;
     return pricePerMonth * exchangeRates[selectedCurrency]!;
   }
 
@@ -29,8 +28,7 @@ class _SubscribePageState extends State<SubscribePage> {
     String duration = 'Bulan';
 
     String currency = selectedCurrency;
-    String message =
-        'Ingin order\n\nDurasi: 1 $duration\n Mata Uang: $currency';
+    String message = 'Ingin order\n\nDurasi: 1 $duration\nMata Uang: $currency';
     String url =
         'https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}';
 
@@ -59,8 +57,24 @@ class _SubscribePageState extends State<SubscribePage> {
                   context: context,
                   builder: (context) => AlertDialog(
                     title: Text('Pembayaran 1 Bulan'),
-                    content: Text(
-                        'Total harga: ${totalPrice.toStringAsFixed(2)} $selectedCurrency'),
+                    content: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          'Keuntungan Berlangganan:',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text('- Mendapatkan akses penuh ke semua fitur'),
+                        Text(
+                            '- Mendapatkan Update reguler tentang konten baru'),
+                        Text('- Supported github repositories download'),
+                        Text('- dan masih banyak lagi'),
+                        SizedBox(height: 10),
+                        Text(
+                            'Total harga: ${totalPrice.toStringAsFixed(2)} $selectedCurrency'),
+                      ],
+                    ),
                     actions: [
                       TextButton(
                         onPressed: () {
@@ -79,7 +93,7 @@ class _SubscribePageState extends State<SubscribePage> {
                   ),
                 );
               },
-              child: Text('1 Bulan - Rp 50.000'),
+              child: Text('1 Bulan - Rp $pricePerMonth'),
             ),
             SizedBox(height: 20),
             Text(

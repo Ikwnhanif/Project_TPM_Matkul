@@ -10,14 +10,12 @@ class Calendar extends StatefulWidget {
 class _CalendarState extends State<Calendar> {
   DateTime _selectedDate = DateTime.now();
   String _zone = 'WIB';
-  late Timer _timer;
   late String _timeString;
 
   @override
   void initState() {
     super.initState();
-    _timer =
-        Timer.periodic(Duration(milliseconds: 100), (Timer t) => _getTime());
+    Timer.periodic(Duration(milliseconds: 10), (Timer t) => _getTime());
   }
 
   void _getTime() {
@@ -89,61 +87,37 @@ class _CalendarState extends State<Calendar> {
               ),
             ),
             SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                ElevatedButton(
+            DropdownButton<String>(
+              value: _zone,
+              onChanged: (String? newValue) {
+                setState(() {
+                  _zone = newValue!;
+                });
+              },
+              items: [
+                DropdownMenuItem(
+                  value: 'WIB',
                   child: Text('WIB'),
-                  onPressed: () {
-                    setState(() {
-                      _zone = 'WIB';
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.deepPurple, // warna latar belakang button
-                    onPrimary: Colors.white, // warna teks pada button
-                  ),
                 ),
-                SizedBox(width: 16),
-                ElevatedButton(
+                DropdownMenuItem(
+                  value: 'WITA',
                   child: Text('WITA'),
-                  onPressed: () {
-                    setState(() {
-                      _zone = 'WITA';
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.deepPurple, // warna latar belakang button
-                    onPrimary: Colors.white, // warna teks pada button
-                  ),
                 ),
-                SizedBox(width: 16),
-                ElevatedButton(
+                DropdownMenuItem(
+                  value: 'WIT',
                   child: Text('WIT'),
-                  onPressed: () {
-                    setState(() {
-                      _zone = 'WIT';
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.deepPurple, // warna latar belakang button
-                    onPrimary: Colors.white, // warna teks pada button
-                  ),
                 ),
-                SizedBox(width: 16),
-                ElevatedButton(
+                DropdownMenuItem(
+                  value: 'London',
                   child: Text('LONDON'),
-                  onPressed: () {
-                    setState(() {
-                      _zone = 'London';
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.deepPurple, // warna latar belakang button
-                    onPrimary: Colors.white, // warna teks pada button
-                  ),
                 ),
               ],
+              style: TextStyle(color: Colors.black),
+              dropdownColor: Colors.white,
+              underline: Container(
+                height: 2,
+                color: Colors.deepPurple,
+              ),
             ),
           ],
         ),
